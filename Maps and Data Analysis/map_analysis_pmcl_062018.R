@@ -135,9 +135,10 @@ View(cl[ CL$DESC_COMUN %in% c("LAS CONDES", "VITACURA"), c("DESC_COMUN", "pm_64_
 
 
 df<-cl[, c( "COMUNA",
-            "pm_69_2004", "pm_64_2004", "pm_74_2004",
-            "pm_69_2009", "pm_64_2009", "pm_74_2009",
-            "pm_69_2015", "pm_64_2015", "pm_74_2015",
+            "pm_64_2004","pm_69_2004",  "pm_74_2004",
+            "pm_64_2009", "pm_69_2009", "pm_74_2009",
+            "pm_39_2015", "pm_49_2015",  "pm_59_2015",
+            "pm_64_2015", "pm_69_2015","pm_74_2015",
             "pop.2004", "pop.2009", "pop.2015",
             "gespop2009", "density2007", "ingreso_promedio_2015" , 
             "salud_fonasa_2015", "carencia_edu_2015", "Pobreza_multi_2015")
@@ -147,15 +148,16 @@ df<-cl[, c( "COMUNA",
 df$COMUNA<-as.numeric(df$COMUNA)
 ###Summary table
 cvars<-c( "Codigo Comuna", 
-          "MP <70 años 2004", "MP <65 años 2004", "MP <75 años 2004",
-          "MP <70 años 2009", "MP <65 años 2009", "MP <75 años 2009",
-          "MP <70 años 2015", "MP <65 años 2015", "MP <75 años 2015",
-          "Población 2004", "Población 2009", "Población 2015",
+          "MP <65 años 2004","MP <70 años 2004", "MP <75 años 2004",
+          "MP <65 años 2009", "MP <70 años 2009", "MP <75 años 2009",
+          "MP <40 años 2015", "MP <50 años 2015", "MP <60 años 2015",
+          "MP <65 años 2015", "MP <70 años 2015", "MP <75 años 2015",
+          "Población Comunal 2004", "Población Comunal 2009", "Población Comunal 2015",
           "Gasto GES 2007-9", "Densidad pob. 2015", "Ingreso medio 2015", 
           "Prop. Fonasa 2015", "Carencia Educ. 2015", "Pobreza multicausal"
 )
 
-stargazer(df, covariate.labels=cvars)
+stargazer(df, covariate.labels=cvars, decimal.mark = ",",  digit.separator = ".")
 
 
 minus<-mydf$pm_69_2004-mydf$pm_69_2015
