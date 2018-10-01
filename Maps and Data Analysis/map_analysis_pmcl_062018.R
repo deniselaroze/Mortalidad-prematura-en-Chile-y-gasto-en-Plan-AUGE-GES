@@ -21,12 +21,13 @@ library(plyr)
 library(raster)
 library(stargazer)
 library(ggplot2)
+library(xtable)
 
 rm(list=ls())
 
 
 #bd<-"C:/Users/Denise Laroze Prehn/Dropbox/PMCL"
-bd<-"C:/Users/Denise Laroze P/Dropbox/PMCL"
+bd<-"C:/Users/Profesor/Dropbox/PMCL"
 
 setwd(bd)
 
@@ -168,6 +169,30 @@ sd(mydf$gespop2009, na.rm=T)
 
 hist(mydf$gespop2009)
 
+
+##### Descriptives on changes to premature mortality
+
+cl$reduccion<-cl$pm_69_2015 - cl$pm_69_2004
+
+DT<-cl[cl$pop.2004>10000, ]
+
+DT<-DT[, c("DESC_COMUN" ,  "REGION", "pop.2004" , "pm_69_2004", "pm_69_2015" ,   "reduccion" )]
+DT<-DT[DT$pm_69_2004!=0,]
+
+
+DT <- DT[with(DT,order(reduccion)),]
+
+DT$pc_reduc<-round(DT$reduccion*100/DT$pm_69_2004, 2)
+DTTop <- DT[1:10,]
+
+DT <- DT[with(DT,order(-reduccion)),]
+DTbot<- DT[1:10,]
+
+DTprint<- rbind(DTTop, DTbot)
+
+DTprint[3:6]<-round(DTprint[3:6], 0)
+
+xtable(DTprint)
 
 ### If levels premature mortality correlate with spending
 # lm1<-lm(gespop2009 ~ pm_69_2004, data=mydf)
